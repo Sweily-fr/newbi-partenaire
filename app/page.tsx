@@ -18,7 +18,7 @@ export default function Home() {
       <main className="relative z-10 mx-auto max-w-[80rem] px-4 pt-20 pb-24 text-center sm:px-6 md:px-8 md:pt-24 lg:pt-32">
         {/* Main Title */}
         <h1 className="bg-gradient-to-br from-white to-white/60 bg-clip-text py-4 text-4xl font-medium leading-tight tracking-tighter text-transparent sm:py-6 sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
-          Devenez partenaire Newbi<br className="hidden sm:block" /> et Gagnez des commissions
+          Devenez Partenaire<br className="hidden sm:block" /> et Gagnez des Commissions
         </h1>
         
         <p className="mb-8 text-base tracking-tight text-white/60 sm:mb-10 sm:text-lg md:mb-12 md:text-xl max-w-2xl mx-auto px-4">
