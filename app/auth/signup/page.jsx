@@ -191,7 +191,7 @@ const SignupForm = () => {
 
       <Button
         type="submit"
-        className="mt-4 w-full py-2 font-normal cursor-pointer bg-[#5b50FF] hover:bg-[#5b50FF]/90"
+        className="mt-4 w-full py-2 font-normal cursor-pointer bg-[#5b50FF] hover:bg-[#5b50FF]/90 text-white"
         disabled={isSubmitting}
       >
         {isSubmitting ? (

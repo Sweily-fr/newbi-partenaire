@@ -417,7 +417,7 @@ export function PartnerProfileModal({ open, onOpenChange, user }) {
           </Button>
           <Button 
             onClick={handleSave} 
-            className="bg-[#5b50ff] hover:bg-[#4a3fee]"
+            className="bg-[#5b50ff] hover:bg-[#4a3fee] text-white"
             disabled={isSaving}
           >
             {isSaving ? "Sauvegarde..." : "Sauvegarder"}

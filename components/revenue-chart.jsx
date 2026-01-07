@@ -45,6 +45,7 @@ export function RevenueChart({ data }) {
                 stroke="hsl(var(--border))"
                 axisLine={{ stroke: "hsl(var(--border))" }}
                 domain={hasData ? ['auto', 'auto'] : [0, 200]}
+                tickFormatter={(value) => Number(value).toFixed(2)}
               />
               <Tooltip 
                 contentStyle={{
@@ -64,7 +65,7 @@ export function RevenueChart({ data }) {
                 cursor={{ fill: "hsl(var(--muted))", opacity: 0.1 }}
                 formatter={(value, name) => {
                   if (name === "Structure") return null;
-                  return [`${hasData ? value : 0} €`, 'CA'];
+                  return [`${hasData ? Number(value).toFixed(2) : '0.00'} €`, 'CA'];
                 }}
               />
               <Legend 

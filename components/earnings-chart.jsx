@@ -51,6 +51,7 @@ export function EarningsChart({ data }) {
                 stroke="hsl(var(--border))"
                 axisLine={{ stroke: "hsl(var(--border))" }}
                 domain={hasData ? ['auto', 'auto'] : [0, 100]}
+                tickFormatter={(value) => Number(value).toFixed(2)}
               />
               <Tooltip 
                 contentStyle={{
@@ -70,7 +71,7 @@ export function EarningsChart({ data }) {
                 cursor={{ fill: "hsl(var(--muted))", opacity: 0.1 }}
                 formatter={(value, name) => {
                   if (name === "Structure") return null;
-                  return [`${hasData ? value : 0} €`, 'Gains'];
+                  return [`${hasData ? Number(value).toFixed(2) : '0.00'} €`, 'Gains'];
                 }}
               />
               {!hasData && (

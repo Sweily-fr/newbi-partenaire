@@ -222,7 +222,7 @@ export function ReferralsTable() {
         <p className="text-sm text-muted-foreground mb-6 max-w-md mx-auto">
           Partagez votre lien de parrainage avec vos contacts pour commencer à gagner des commissions sur chaque client référé.
         </p>
-        <Button onClick={handleCopyLink} className="gap-2 bg-[#5b50ff] hover:bg-[#5b50ff]/90">
+        <Button onClick={handleCopyLink} className="gap-2 bg-[#5b50ff] hover:bg-[#5b50ff]/90 text-white">
           <Copy className="h-4 w-4" />
           Copier mon lien de parrainage
         </Button>

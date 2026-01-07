@@ -162,7 +162,7 @@ export function WithdrawalCard({ availableBalance = 0, totalEarnings = 0 }) {
         </div>
 
         <Button 
-          className="w-full bg-[#5b50ff] hover:bg-[#4a3fee]" 
+          className="w-full bg-[#5b50ff] hover:bg-[#4a3fee] text-white" 
           onClick={handleWithdrawal}
           disabled={isLoading || !canWithdraw}
         >
