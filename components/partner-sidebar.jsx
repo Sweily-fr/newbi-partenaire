@@ -84,7 +84,7 @@ export function PartnerSidebar() {
       <SidebarHeader className="px-3 py-4">
         <Link href="/dashboard" className="flex items-center gap-2">
           <img
-            src="/Logo + texte_blanc.svg"
+            src="https://pub-866a54f5560d449cb224411e60410621.r2.dev/Logo_Texte_White.png"
             alt="Logo Newbi"
             className="h-8 w-auto"
           />

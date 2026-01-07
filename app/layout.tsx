@@ -17,6 +17,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Espace Partenaire - Newbi",
   description: "Interface dédiée aux apporteurs d'affaires Newbi",
+  icons: {
+    icon: "https://pub-866a54f5560d449cb224411e60410621.r2.dev/Logo_NI_Purple.png",
+    shortcut: "https://pub-866a54f5560d449cb224411e60410621.r2.dev/Logo_NI_Purple.png",
+    apple: "https://pub-866a54f5560d449cb224411e60410621.r2.dev/Logo_NI_Purple.png",
+  },
 };
 
 export default function RootLayout({

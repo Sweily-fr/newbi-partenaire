@@ -80,7 +80,7 @@ const PartnerNavbar = ({ className }: { className?: string }) => {
 const Logo = () => {
   return (
     <img
-      src="/Logo + texte_blanc.svg"
+      src="https://pub-866a54f5560d449cb224411e60410621.r2.dev/Logo_Texte_White.png"
       alt="Logo Newbi"
       width="120"
       height="40"
