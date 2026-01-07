@@ -16,11 +16,33 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Espace Partenaire - Newbi",
-  description: "Interface dédiée aux apporteurs d'affaires Newbi",
+  description: "Devenez partenaire Newbi et gagnez jusqu'à 50% de commission sur chaque client référé. Recommandez Newbi à votre réseau professionnel.",
   icons: {
     icon: "https://pub-866a54f5560d449cb224411e60410621.r2.dev/Logo_NI_Purple.png",
     shortcut: "https://pub-866a54f5560d449cb224411e60410621.r2.dev/Logo_NI_Purple.png",
     apple: "https://pub-866a54f5560d449cb224411e60410621.r2.dev/Logo_NI_Purple.png",
+  },
+  openGraph: {
+    title: "Devenez Partenaire Newbi - Gagnez jusqu'à 50% de commission",
+    description: "Recommandez Newbi à votre réseau professionnel et générez des revenus sur chaque client référé.",
+    url: "https://partenaire.newbi.fr",
+    siteName: "Newbi Partenaire",
+    images: [
+      {
+        url: "https://pub-866a54f5560d449cb224411e60410621.r2.dev/og-partenaire-newbi.png",
+        width: 1200,
+        height: 630,
+        alt: "Newbi Partenaire - Gagnez des commissions",
+      },
+    ],
+    locale: "fr_FR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Devenez Partenaire Newbi - Gagnez jusqu'à 50% de commission",
+    description: "Recommandez Newbi à votre réseau professionnel et générez des revenus sur chaque client référé.",
+    images: ["https://pub-866a54f5560d449cb224411e60410621.r2.dev/og-partenaire-newbi.png"],
   },
 };
 

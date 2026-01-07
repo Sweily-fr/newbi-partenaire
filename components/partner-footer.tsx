@@ -11,12 +11,12 @@ const PartnerFooter = () => {
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="text-sm text-white/60">
             <a
-              href="https://www.sweily.fr"
+              href="https://www.newbi.fr"
               className="hover:text-white transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Sweily
+              Newbi
             </a>{" "}
             — Made with ❤️ in France • © {new Date().getFullYear()}
           </div>
