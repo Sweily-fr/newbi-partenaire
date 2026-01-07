@@ -127,7 +127,7 @@ const LoginForm = () => {
   // Vérifier si on doit activer le mode partenaire (lecture directe des params)
   const activatePartnerMode = searchParams.get("activate_partner") === "true";
   const hasShownToastRef = useRef(false);
-
+ 
   // Afficher le toast une seule fois
   useEffect(() => {
     if (activatePartnerMode && !hasShownToastRef.current) {
