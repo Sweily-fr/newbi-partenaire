@@ -30,17 +30,37 @@ import {
   Calendar,
   ChevronLeft,
   ChevronRight,
+  Users,
+  Copy,
+  Link as LinkIcon,
 } from "lucide-react";
+import { useSession } from "@/src/lib/auth-client";
+import { toast } from "sonner";
 
 export function ReferralsTable() {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
+  const { data: session } = useSession();
 
   // Récupérer les vraies données depuis l'API
   const { data, loading, error } = useQuery(GET_PARTNER_REFERRALS);
 
   const referrals = data?.getPartnerReferrals || [];
+
+  // Générer le code de parrainage à partir de l'email
+  const generateReferralCode = (email) => {
+    if (!email) return "partner";
+    const username = email.split("@")[0].toLowerCase();
+    return username.replace(/[^a-z0-9]/g, "").slice(0, 10);
+  };
+
+  const handleCopyLink = () => {
+    const referralCode = generateReferralCode(session?.user?.email);
+    const referralLink = `https://www.newbi.fr/auth/signup?partner=${referralCode}`;
+    navigator.clipboard.writeText(referralLink);
+    toast.success("Lien copié dans le presse-papier !");
+  };
 
   const columns = useMemo(
     () => [
@@ -191,12 +211,25 @@ export function ReferralsTable() {
     );
   }
 
-  // Afficher une erreur si nécessaire
-  if (error) {
+  // Afficher un état vide si pas de filleuls ou erreur
+  if (error || referrals.length === 0) {
     return (
       <div className="rounded-lg border bg-card p-8 text-center">
-        <p className="text-red-500">Erreur lors du chargement des filleuls</p>
-        <p className="text-sm text-muted-foreground mt-2">{error.message}</p>
+        <div className="mx-auto bg-[#5b50ff]/10 rounded-full p-4 w-fit mb-4">
+          <Users className="h-8 w-8 text-[#5b50ff]" />
+        </div>
+        <h3 className="text-lg font-semibold mb-2">Aucun filleul pour le moment</h3>
+        <p className="text-sm text-muted-foreground mb-6 max-w-md mx-auto">
+          Partagez votre lien de parrainage avec vos contacts pour commencer à gagner des commissions sur chaque client référé.
+        </p>
+        <Button onClick={handleCopyLink} className="gap-2 bg-[#5b50ff] hover:bg-[#5b50ff]/90">
+          <Copy className="h-4 w-4" />
+          Copier mon lien de parrainage
+        </Button>
+        <p className="text-xs text-muted-foreground mt-4 flex items-center justify-center gap-1">
+          <LinkIcon className="h-3 w-3" />
+          Envoyez ce lien à vos clients potentiels
+        </p>
       </div>
     );
   }
