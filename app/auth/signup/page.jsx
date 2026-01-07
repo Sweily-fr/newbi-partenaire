@@ -34,34 +34,43 @@ const SignupForm = () => {
         body: JSON.stringify({ email: formData.email }),
       });
       
-      const checkResult = await checkResponse.json();
+      const checkData = await checkResponse.json();
       
-      if (checkResult.exists) {
-        // L'utilisateur existe déjà
-        if (checkResult.isPartner) {
-          // Déjà partenaire, rediriger vers login
-          toast.info("Vous êtes déjà partenaire. Connectez-vous pour accéder à votre espace.");
+      // Si l'utilisateur existe déjà
+      if (checkData.exists) {
+        // Si déjà partenaire, rediriger vers login
+        if (checkData.isPartner) {
+          toast.info("Vous êtes déjà partenaire. Connectez-vous avec vos identifiants.");
           router.push("/auth/login");
           return;
+        }
+        
+        // Sinon, mettre à jour le statut partenaire
+        const updateResponse = await fetch("/api/auth/update-partner-status", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: formData.email }),
+        });
+        
+        if (updateResponse.ok) {
+          toast.success("Votre compte Newbi a été converti en compte partenaire ! Connectez-vous avec vos identifiants habituels.");
+          router.push("/auth/login?converted=true");
+          return;
         } else {
-          // Utilisateur Newbi existant, rediriger vers login pour activer le statut partenaire
-          toast.info("Un compte existe avec cet email. Connectez-vous pour activer votre statut partenaire.");
-          router.push("/auth/login?activate_partner=true&email=" + encodeURIComponent(formData.email));
+          toast.error("Erreur lors de la conversion du compte");
           return;
         }
       }
-
-      // Créer un nouveau compte partenaire avec isPartner = true
+      
+      // Si l'utilisateur n'existe pas, créer un nouveau compte
       const { data, error } = await signUp.email({
         email: formData.email,
         password: formData.password,
         name: formData.name,
-        // Définir isPartner à true dès l'inscription
         callbackURL: "/auth/login",
       }, {
         onSuccess: async () => {
           toast.success("Compte créé avec succès ! Vérifiez votre email pour confirmer votre inscription.");
-          // Redirection vers la page de login avec un message
           router.push("/auth/login?verified=pending");
         },
         onError: (err) => {
@@ -70,7 +79,6 @@ const SignupForm = () => {
         },
       });
 
-      // Gérer les erreurs retournées directement
       if (error) {
         let errorMessage = "Erreur lors de l'inscription";
 
@@ -82,21 +90,7 @@ const SignupForm = () => {
           errorMessage = error;
         }
 
-        // Gérer les erreurs spécifiques
-        if (
-          errorMessage.toLowerCase().includes("email") &&
-          (errorMessage.toLowerCase().includes("exist") || 
-           errorMessage.toLowerCase().includes("already") ||
-           errorMessage.toLowerCase().includes("utilisé") ||
-           errorMessage.toLowerCase().includes("duplicate"))
-        ) {
-          toast.info("Un compte existe avec cet email. Connectez-vous pour activer votre statut partenaire.");
-          router.push("/auth/login?activate_partner=true&email=" + encodeURIComponent(formData.email));
-        } else if (error.status === 500) {
-          toast.error("Erreur lors de l'inscription. Veuillez réessayer.");
-        } else {
-          toast.error(errorMessage);
-        }
+        toast.error(errorMessage);
       }
     } catch {
       toast.error("Erreur lors de l'inscription");
