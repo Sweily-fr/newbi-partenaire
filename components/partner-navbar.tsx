@@ -30,9 +30,6 @@ const PartnerNavbar = ({ className }: { className?: string }) => {
             </Link>
 
             <div className="flex items-center gap-2">
-              <a href="#comment-ca-marche" className="text-sm text-white/70 hover:text-white transition-colors cursor-pointer">
-                Comment ça marche ?
-              </a>
               <Button asChild variant="outline" size="sm">
                 <Link href="/auth/login">
                   <span>Connexion</span>
