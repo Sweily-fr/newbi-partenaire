@@ -55,10 +55,6 @@ export default function DashboardPage() {
               <Skeleton key={i} className="h-32" />
             ))}
           </>
-        ) : error ? (
-          <div className="col-span-4 text-center text-red-500">
-            Erreur lors du chargement des statistiques
-          </div>
         ) : (
           <>
             <StatsCard
