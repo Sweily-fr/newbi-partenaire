@@ -27,6 +27,30 @@ const SignupForm = () => {
 
   const onSubmit = async (formData) => {
     try {
+      // Vérifier si l'utilisateur existe déjà
+      const checkResponse = await fetch("/api/auth/check-existing-user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email }),
+      });
+      
+      const checkResult = await checkResponse.json();
+      
+      if (checkResult.exists) {
+        // L'utilisateur existe déjà
+        if (checkResult.isPartner) {
+          // Déjà partenaire, rediriger vers login
+          toast.info("Vous êtes déjà partenaire. Connectez-vous pour accéder à votre espace.");
+          router.push("/auth/login");
+          return;
+        } else {
+          // Utilisateur Newbi existant, rediriger vers login pour activer le statut partenaire
+          toast.info("Un compte existe avec cet email. Connectez-vous pour activer votre statut partenaire.");
+          router.push("/auth/login?activate_partner=true&email=" + encodeURIComponent(formData.email));
+          return;
+        }
+      }
+
       // Créer un nouveau compte partenaire avec isPartner = true
       const { data, error } = await signUp.email({
         email: formData.email,
@@ -66,9 +90,10 @@ const SignupForm = () => {
            errorMessage.toLowerCase().includes("utilisé") ||
            errorMessage.toLowerCase().includes("duplicate"))
         ) {
-          toast.error("Cet email est déjà utilisé");
+          toast.info("Un compte existe avec cet email. Connectez-vous pour activer votre statut partenaire.");
+          router.push("/auth/login?activate_partner=true&email=" + encodeURIComponent(formData.email));
         } else if (error.status === 500) {
-          toast.error("Cet email est déjà utilisé");
+          toast.error("Erreur lors de l'inscription. Veuillez réessayer.");
         } else {
           toast.error(errorMessage);
         }

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect, useRef } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "@/src/lib/auth-client";
 import { authClient } from "@/src/lib/auth-client";
 import { Button } from "@/components/ui/button";
@@ -120,14 +120,44 @@ const LoginForm = () => {
     formState: { errors, isSubmitting },
   } = useForm();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [showEmailVerification, setShowEmailVerification] = useState(false);
   const [userEmailForVerification, setUserEmailForVerification] = useState("");
+  
+  // Vérifier si on doit activer le mode partenaire (lecture directe des params)
+  const activatePartnerMode = searchParams.get("activate_partner") === "true";
+  const hasShownToastRef = useRef(false);
+
+  // Afficher le toast une seule fois
+  useEffect(() => {
+    if (activatePartnerMode && !hasShownToastRef.current) {
+      hasShownToastRef.current = true;
+      toast.info("Connectez-vous avec vos identifiants Newbi pour activer votre statut partenaire.");
+    }
+  }, [activatePartnerMode]);
 
   const onSubmit = async (formData) => {
     try {
       await signIn.email(formData, {
         onSuccess: async () => {
-          toast.success("Connexion réussie");
+          // Si mode activation partenaire, mettre à jour le statut
+          if (activatePartnerMode) {
+            try {
+              const response = await fetch("/api/auth/update-partner-status", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: formData.email }),
+              });
+              
+              if (response.ok) {
+                toast.success("Statut partenaire activé avec succès !");
+              }
+            } catch (error) {
+              console.error("Erreur activation partenaire:", error);
+            }
+          } else {
+            toast.success("Connexion réussie");
+          }
           
           // Définir l'organisation active après la connexion
           await ensureActiveOrganization();
