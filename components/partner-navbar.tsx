@@ -30,6 +30,9 @@ const PartnerNavbar = ({ className }: { className?: string }) => {
             </Link>
 
             <div className="flex items-center gap-2">
+              <a href="#comment-ca-marche" className="text-sm text-white/70 hover:text-white transition-colors">
+                Comment ça marche ?
+              </a>
               <Button asChild variant="outline" size="sm">
                 <Link href="/auth/login">
                   <span>Connexion</span>
@@ -63,7 +66,10 @@ const PartnerNavbar = ({ className }: { className?: string }) => {
             </div>
 
             {/* Boutons à droite */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
+              <a href="#comment-ca-marche" className="text-sm text-white/70 hover:text-white transition-colors">
+                Comment ça marche ?
+              </a>
               <Button asChild variant="outline" size="sm">
                 <Link href="/auth/login">
                   <span>Connexion</span>
