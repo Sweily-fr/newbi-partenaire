@@ -253,7 +253,7 @@ export function PartnerProfileModal({ open, onOpenChange, user }) {
           <div className="flex items-center gap-6">
             <Avatar className="h-20 w-20">
               {user?.avatar ? (
-                <AvatarImage src={user.avatar} alt={user?.name} />
+                <AvatarImage src={user.avatar} alt={user?.name} className="object-cover" />
               ) : (
                 <AvatarFallback className="bg-[#5b50ff] text-white text-2xl">
                   {getUserInitials(user?.name)}
