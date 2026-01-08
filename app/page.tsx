@@ -89,7 +89,7 @@ export default function Home() {
           </div>
 
           <p className="text-center text-white/40 text-sm mt-8">
-            Exemple : Un client souscrit à l&apos;abonnement annuel à 490€ → Vous gagnez jusqu&apos;à 245€ sur le premier paiement
+            Exemple : Un client souscrit à 49€/mois → Vous gagnez jusqu&apos;à 24,50€ à chaque paiement mensuel
           </p>
         </section>
 
