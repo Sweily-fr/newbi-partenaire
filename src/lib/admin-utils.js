@@ -5,6 +5,11 @@
  */
 export function isAdminEmail(email) {
   if (!email) return false;
+  
+  // Emails exclus de l'accès admin
+  const excludedEmails = ['demo@newbi.fr'];
+  if (excludedEmails.includes(email.toLowerCase())) return false;
+  
   const adminDomains = ['@sweily.fr', '@newbi.fr'];
   return adminDomains.some(domain => email.toLowerCase().endsWith(domain));
 }
