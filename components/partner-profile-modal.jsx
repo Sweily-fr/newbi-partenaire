@@ -64,7 +64,7 @@ export function PartnerProfileModal({ open, onOpenChange, user }) {
 
             // Récupérer les coordonnées bancaires depuis MongoDB via l'API
             try {
-              const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/graphql', {
+              const response = await fetch((process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '') + '/graphql', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -174,7 +174,7 @@ export function PartnerProfileModal({ open, onOpenChange, user }) {
           // Mettre à jour les coordonnées bancaires via GraphQL
           if (hasBankInfo && activeOrg) {
             try {
-              const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/graphql', {
+              const response = await fetch((process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '') + '/graphql', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
