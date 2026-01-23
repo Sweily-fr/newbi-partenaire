@@ -160,6 +160,26 @@ export function PartnerProfileModal({ open, onOpenChange, user }) {
         return;
       }
 
+      // Validation du format IBAN (format international)
+      if (hasBankInfo) {
+        const cleanedIban = bankIban.trim().replace(/\s/g, "").toUpperCase();
+        const ibanRegex = /^[A-Z]{2}[0-9]{2}[A-Z0-9]{10,30}$/;
+        if (!ibanRegex.test(cleanedIban)) {
+          toast.error("IBAN invalide. Format attendu: 2 lettres pays + 2 chiffres + 10-30 caractères (ex: FR7630006000011234567890189)");
+          setIsSaving(false);
+          return;
+        }
+
+        // Validation du format BIC (8 ou 11 caractères)
+        const cleanedBic = bankBic.trim().toUpperCase();
+        const bicRegex = /^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$/;
+        if (!bicRegex.test(cleanedBic)) {
+          toast.error("BIC invalide. Format attendu: 8 ou 11 caractères (ex: BNPAFRPP)");
+          setIsSaving(false);
+          return;
+        }
+      }
+
       // Préparer les données utilisateur à mettre à jour
       const updateData = {
         name: name.trim(),
