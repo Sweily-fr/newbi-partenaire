@@ -37,6 +37,8 @@ export async function POST(request) {
       bankDetails,
       availableBalance,
       totalEarnings,
+      invoiceFile,
+      invoiceFileName,
     } = body;
 
     // Validation des données requises
@@ -93,12 +95,22 @@ export async function POST(request) {
 
     console.log('Email partenaire envoyé:', partnerEmailResult.messageId);
 
+    // Préparer les pièces jointes pour l'email admin
+    const adminAttachments = [];
+    if (invoiceFile && invoiceFileName) {
+      adminAttachments.push({
+        filename: invoiceFileName,
+        content: Buffer.from(invoiceFile, 'base64'),
+      });
+    }
+
     // Envoi de l'email à l'admin
     const adminEmailResult = await transporter.sendMail({
       from: `"Newbi Partner System" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
       to: 'contact@newbi.fr',
       subject: `Nouvelle demande de retrait - ${partnerName} (${withdrawalId})`,
       html: adminEmailHtml,
+      attachments: adminAttachments,
     });
 
     console.log('Email admin envoyé:', adminEmailResult.messageId);
@@ -108,6 +120,7 @@ export async function POST(request) {
       message: 'Emails envoyés avec succès',
       partnerEmailId: partnerEmailResult.messageId,
       adminEmailId: adminEmailResult.messageId,
+      hasInvoice: !!invoiceFile,
     });
 
   } catch (error) {

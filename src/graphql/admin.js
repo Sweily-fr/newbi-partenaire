@@ -14,6 +14,7 @@ export const GET_ALL_WITHDRAWALS = gql`
         bic
         accountHolder
       }
+      hasInvoice
       partner {
         id
         name

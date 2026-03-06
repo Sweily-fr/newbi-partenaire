@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { CheckCircle2, XCircle, Clock, Euro, Mail, User } from "lucide-react";
+import { CheckCircle2, XCircle, Clock, Euro, Mail, User, FileCheck, FileX } from "lucide-react";
 import { toast } from "sonner";
 
 export function WithdrawalsManagement() {
@@ -207,6 +207,7 @@ export function WithdrawalsManagement() {
                         <TableHead>Solde disponible</TableHead>
                         <TableHead>IBAN</TableHead>
                         <TableHead>Date demande</TableHead>
+                        <TableHead>Justificatif</TableHead>
                         <TableHead>Statut</TableHead>
                         <TableHead className="text-right">Actions</TableHead>
                       </TableRow>
@@ -244,6 +245,19 @@ export function WithdrawalsManagement() {
                           </TableCell>
                           <TableCell className="text-sm">
                             {formatDate(withdrawal.requestedAt)}
+                          </TableCell>
+                          <TableCell>
+                            {withdrawal.hasInvoice ? (
+                              <Badge className="flex items-center gap-1 w-fit bg-green-100 text-green-800 border-green-200">
+                                <FileCheck className="h-3 w-3" />
+                                Envoyé
+                              </Badge>
+                            ) : (
+                              <Badge variant="secondary" className="flex items-center gap-1 w-fit">
+                                <FileX className="h-3 w-3" />
+                                Non transmis
+                              </Badge>
+                            )}
                           </TableCell>
                           <TableCell>{getStatusBadge(withdrawal.status)}</TableCell>
                           <TableCell className="text-right">
