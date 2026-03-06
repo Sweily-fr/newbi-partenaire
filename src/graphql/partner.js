@@ -81,8 +81,8 @@ export const GET_WITHDRAWALS = gql`
  * Mutation pour demander un retrait
  */
 export const REQUEST_WITHDRAWAL = gql`
-  mutation RequestWithdrawal($amount: Float!, $method: String!) {
-    requestWithdrawal(amount: $amount, method: $method) {
+  mutation RequestWithdrawal($amount: Float!, $method: String!, $hasInvoice: Boolean) {
+    requestWithdrawal(amount: $amount, method: $method, hasInvoice: $hasInvoice) {
       success
       message
       withdrawal {
@@ -92,6 +92,7 @@ export const REQUEST_WITHDRAWAL = gql`
         requestedAt
         processedAt
         method
+        hasInvoice
       }
     }
   }
